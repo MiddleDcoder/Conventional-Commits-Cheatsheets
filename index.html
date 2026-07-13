@@ -18,7 +18,12 @@
   <a class="brand" href="#top">
     <span class="brand-mark">git</span><span class="brand-rest">log --pretty</span>
   </a>
-  <nav class="topnav" aria-label="Section navigation">
+  <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Toggle navigation">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+  <nav class="topnav" id="site-nav" aria-label="Section navigation">
     <a href="#syntax">Syntax</a>
     <a href="#types">Types</a>
     <a href="#breaking">Breaking</a>
@@ -207,6 +212,30 @@ document.querySelectorAll('.copy-btn').forEach(function (btn) {
     });
   });
 });
+
+var menuToggle = document.querySelector('.menu-toggle');
+var topnav = document.querySelector('.topnav');
+
+if (menuToggle && topnav) {
+  menuToggle.addEventListener('click', function () {
+    var isOpen = topnav.classList.toggle('open');
+    menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+
+  topnav.querySelectorAll('a').forEach(function (link) {
+    link.addEventListener('click', function () {
+      topnav.classList.remove('open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  window.addEventListener('resize', function () {
+    if (window.innerWidth > 768) {
+      topnav.classList.remove('open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+}
 </script>
 
 </body>
