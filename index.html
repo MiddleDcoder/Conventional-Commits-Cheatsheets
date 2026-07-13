@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Conventional Commits — Cheatsheet</title>
+<meta name="description" content="A fast, scannable reference for writing Conventional Commits 1.0.0 messages.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<a class="skip-link" href="#syntax">Skip to content</a>
+
+<header class="topbar">
+  <a class="brand" href="#top">
+    <span class="brand-mark">git</span><span class="brand-rest">log --pretty</span>
+  </a>
+  <nav class="topnav" aria-label="Section navigation">
+    <a href="#syntax">Syntax</a>
+    <a href="#types">Types</a>
+    <a href="#breaking">Breaking</a>
+    <a href="#examples">Examples</a>
+    <a href="#tips">Tips</a>
+  </nav>
+  <a class="spec-link" href="https://www.conventionalcommits.org/en/v1.0.0/" target="_blank" rel="noopener">Full spec ↗</a>
+</header>
+
+<main>
+
+  <section class="hero" id="top">
+    <p class="eyebrow">// conventional commits 1.0.0</p>
+    <h1>Say what changed.<br>Automate everything after.</h1>
+    <p class="hero-sub">A lightweight commit convention that both humans and tools can parse — it drives your changelog and your version bump. This is the fast-lookup cheatsheet; the canonical spec is one tap away.</p>
+
+    <div class="anatomy" role="img" aria-label="Anatomy of a conventional commit: feat(api)! colon add OAuth2 provider support, where feat is the required type, (api) is an optional scope, exclamation mark optionally flags a breaking change, and the text after the colon is the required description.">
+      <div class="anatomy-row">
+        <div class="part">
+          <span class="tok type">feat</span>
+          <span class="lbl">type <em>required</em></span>
+        </div>
+        <div class="part">
+          <span class="tok punct">(</span><span class="tok scope">api</span><span class="tok punct">)</span>
+          <span class="lbl">scope <em>optional</em></span>
+        </div>
+        <div class="part">
+          <span class="tok bang">!</span>
+          <span class="lbl">breaking <em>optional</em></span>
+        </div>
+        <div class="part">
+          <span class="tok punct">:</span>
+          <span class="lbl">&nbsp;</span>
+        </div>
+        <div class="part grow">
+          <span class="tok desc">add OAuth2 provider support</span>
+          <span class="lbl">description <em>required</em></span>
+        </div>
+      </div>
+    </div>
+    <p class="hero-note">↓ full structure, with the optional body and footer, below</p>
+  </section>
+
+  <section id="syntax" class="section">
+    <p class="eyebrow">// syntax</p>
+    <h2>Full structure</h2>
+
+    <div class="terminal">
+      <div class="terminal-bar"><span class="prompt-path">~/project <span class="branch">⎇ main</span></span><button class="copy-btn" data-copy-target="syntax-code">Copy</button></div>
+      <pre class="terminal-body" id="syntax-code">&lt;type&gt;[optional scope]: &lt;description&gt;
+
+[optional body]
+
+[optional footer(s)]</pre>
+    </div>
+
+    <ul class="rules">
+      <li><strong>Type, colon, space are required</strong> — e.g. <code>feat: </code>, <code>fix: </code></li>
+      <li><strong>Casing</strong> — any casing works, stay consistent. Exception: <code>BREAKING CHANGE</code> in a footer is always uppercase</li>
+      <li><strong>Breaking changes</strong> — mark with <code>!</code> before the colon, a <code>BREAKING CHANGE:</code> footer, or both</li>
+    </ul>
+  </section>
+
+  <section id="types" class="section">
+    <p class="eyebrow">// types</p>
+    <h2>Commit types</h2>
+
+    <h3 class="subhead">Core — these drive SemVer</h3>
+    <div class="core-types">
+      <div class="type-card card-patch">
+        <span class="badge">PATCH</span>
+        <code class="type-name">fix</code>
+        <p>A bug fix.</p>
+      </div>
+      <div class="type-card card-minor">
+        <span class="badge">MINOR</span>
+        <code class="type-name">feat</code>
+        <p>A new feature.</p>
+      </div>
+      <div class="type-card card-major">
+        <span class="badge">MAJOR</span>
+        <code class="type-name">any type + !</code>
+        <p>A breaking change, regardless of type.</p>
+      </div>
+    </div>
+
+    <h3 class="subhead">Additional — common convention, no SemVer effect on their own</h3>
+    <div class="type-grid">
+      <div class="mini-card"><code>build</code><p>Changes to the build system or external dependencies</p></div>
+      <div class="mini-card"><code>chore</code><p>Other changes that don't modify src or test files — tooling, deps, config</p></div>
+      <div class="mini-card"><code>ci</code><p>Changes to CI configuration files and scripts</p></div>
+      <div class="mini-card"><code>docs</code><p>Documentation-only changes</p></div>
+      <div class="mini-card"><code>perf</code><p>A code change that improves performance</p></div>
+      <div class="mini-card"><code>refactor</code><p>A code change that's neither a fix nor a feature</p></div>
+      <div class="mini-card"><code>revert</code><p>Reverts a previous commit</p></div>
+      <div class="mini-card"><code>style</code><p>Formatting only — whitespace, semicolons. No code meaning change</p></div>
+      <div class="mini-card"><code>test</code><p>Adding or correcting tests</p></div>
+    </div>
+    <p class="footnote">These aren't mandated by the spec — teams can define their own.</p>
+  </section>
+
+  <section id="breaking" class="section">
+    <p class="eyebrow">// breaking changes</p>
+    <h2>Signal a MAJOR bump</h2>
+
+    <div class="two-col">
+      <div class="terminal">
+        <div class="terminal-bar"><span class="prompt-path">option 1 <span class="branch">! shorthand</span></span><button class="copy-btn" data-copy-target="brk-1">Copy</button></div>
+        <pre class="terminal-body" id="brk-1">feat(api)!: drop support for Node 18</pre>
+      </div>
+      <div class="terminal">
+        <div class="terminal-bar"><span class="prompt-path">option 2 <span class="branch">footer</span></span><button class="copy-btn" data-copy-target="brk-2">Copy</button></div>
+        <pre class="terminal-body" id="brk-2">fix: prevent unauthorized access to admin panel
+
+BREAKING CHANGE: the isAdmin flag is now strictly
+enforced on all v2 endpoints</pre>
+      </div>
+    </div>
+  </section>
+
+  <section id="examples" class="section">
+    <p class="eyebrow">// examples</p>
+    <h2>Real commits</h2>
+
+    <div class="terminal">
+      <div class="terminal-bar"><span class="prompt-path">minimal</span><button class="copy-btn" data-copy-target="ex-1">Copy</button></div>
+      <pre class="terminal-body" id="ex-1">docs: fix typo in README installation steps</pre>
+    </div>
+
+    <div class="terminal">
+      <div class="terminal-bar"><span class="prompt-path">with scope</span><button class="copy-btn" data-copy-target="ex-2">Copy</button></div>
+      <pre class="terminal-body" id="ex-2">feat(auth): add OAuth2 provider support</pre>
+    </div>
+
+    <div class="terminal">
+      <div class="terminal-bar"><span class="prompt-path">body + footer</span><button class="copy-btn" data-copy-target="ex-3">Copy</button></div>
+      <pre class="terminal-body" id="ex-3">fix(parser): resolve race condition on rapid sequential inputs
+
+Introduce a unique request ID to tracking payloads. Dismiss incoming
+responses if they do not match the latest request ID.
+
+Reviewed-by: @dev-lead
+Refs: #402</pre>
+    </div>
+  </section>
+
+  <section id="tips" class="section">
+    <p class="eyebrow">// tips</p>
+    <h2>Good to know</h2>
+    <ul class="tips-list">
+      <li>One type per commit — if a change fits two types, split it into separate commits</li>
+      <li>Footer tokens use <code>-</code> instead of spaces (<code>Reviewed-by</code>), except <code>BREAKING CHANGE</code></li>
+      <li>A scope is a noun in parentheses describing the affected area, e.g. <code>feat(parser):</code></li>
+    </ul>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <p>Source: <a href="https://www.conventionalcommits.org/en/v1.0.0/" target="_blank" rel="noopener">conventionalcommits.org/en/v1.0.0</a></p>
+</footer>
+
+<script>
+document.querySelectorAll('.copy-btn').forEach(function (btn) {
+  btn.addEventListener('click', function () {
+    var target = document.getElementById(btn.getAttribute('data-copy-target'));
+    if (!target) return;
+    var text = target.textContent;
+    navigator.clipboard.writeText(text).then(function () {
+      var original = btn.textContent;
+      btn.textContent = 'Copied';
+      btn.classList.add('copied');
+      setTimeout(function () {
+        btn.textContent = original;
+        btn.classList.remove('copied');
+      }, 1400);
+    }).catch(function () {
+      btn.textContent = 'Select & copy';
+    });
+  });
+});
+</script>
+
+</body>
+</html>
