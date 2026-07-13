@@ -359,6 +359,17 @@ h2 { font-size: clamp(1.4rem, 3vw, 1.8rem); margin-bottom: 1.25rem; }
 }
 .site-footer a { color: var(--text-muted); text-decoration: underline; text-underline-offset: 3px; }
 .site-footer a:hover { color: var(--accent); }
+.github-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  text-decoration: none;
+}
+.github-icon {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+}
 
 /* ---------- responsive ---------- */
 @media (max-width: 720px) {
